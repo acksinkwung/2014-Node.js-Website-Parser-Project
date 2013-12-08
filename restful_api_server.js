@@ -29,7 +29,7 @@ function OpenDataProcess(data, callback) {
 	    ws_objects.push(ws_object);
 	}
 	callback(JSON.stringify(ws_objects));
-}
+} 
 
 function OpenDataOutput(response, data) {
 	response.setHeader('Content-Length', Buffer.byteLength(data));

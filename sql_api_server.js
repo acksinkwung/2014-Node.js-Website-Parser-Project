@@ -75,7 +75,7 @@ function MySQLOperation(data, callback) {
 	});
 
 }
-
+ 
 var url = "http://jobs.inside.com.tw/"
 
 app.get("/", function(request, response) {

@@ -35,7 +35,7 @@ function OpenDataProcess(data, callback) {
 	});
 	callback(JSON.stringify(objects));
 }
-
+ 
 function OpenDataOutput(response, data) {
 	response.setHeader('Content-Length', Buffer.byteLength(data));
 	response.setHeader('Content-Type', 'text/plain; charset="utf-8"');
