@@ -37,14 +37,11 @@ function OpenDataProcess(data, callback) {
 	callback(JSON.stringify(objects));
 }
 
-function OpenDataOutput(data) {
-	app.get("/", function(request, response) {
-	    response.setHeader('Content-Length', Buffer.byteLength(data));
-		response.setHeader('Content-Type', 'text/plain; charset="utf-8"');
-	    response.write(data);
-	    response.end();
-	});
-	http.createServer(app).listen(1337);
+function OpenDataOutput(response, data) {
+	response.setHeader('Content-Length', Buffer.byteLength(data));
+	response.setHeader('Content-Type', 'text/plain; charset="utf-8"');
+	response.write(data);
+	response.end();
 }
 
 function MySQLOperation(data, callback) {
@@ -81,12 +78,15 @@ function MySQLOperation(data, callback) {
 
 var url = "http://jobs.inside.com.tw/"
 
-OpenDataInput(url, function(data) {
-	if (data) {
-		OpenDataProcess(data, function(data) {
-			MySQLOperation(data, function(data) {
-				OpenDataOutput(data);
+app.get("/", function(request, response) {
+	OpenDataInput(url, function(data) {
+		if (data) {
+			OpenDataProcess(data, function(data) {
+				MySQLOperation(data, function(data) {
+					OpenDataOutput(response, data);
+				});
 			});
-		});
- 	}  
+	 	}  
+	});
 });
+http.createServer(app).listen(1337);
