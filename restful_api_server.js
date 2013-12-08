@@ -5,16 +5,16 @@ var app = express();
  
 function OpenDataInput(url, callback) {
 	http.get(url, function(res) {
-    	var data = "";
-    	res.on('data', function (chunk) {
-      		data += chunk;
+		var data = "";
+		res.on('data', function (chunk) {
+ 	  		data += chunk;
+ 		});
+		res.on("end", function() {
+			callback(data);
     	});
-    	res.on("end", function() {
-      		callback(data);
-    	});
-  	}).on("error", function() {
-    	callback(null);
-  	});
+	}).on("error", function() {
+		callback(null);
+	});
 }
 
 function OpenDataProcess(data, callback) {
